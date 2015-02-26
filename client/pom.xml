@@ -1,17 +1,42 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.devel.lazy-tables-fx</groupId>
+	<parent>
+		<groupId>org.devel.lazy-tables-fx</groupId>
+		<artifactId>LazyTablesFX</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 	<artifactId>client</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	
 	<dependencies>
+	
+		<!-- Common -->
+		<dependency>
+			<groupId>org.devel.lazy-tables-fx</groupId>
+			<artifactId>common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- Logging -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
+		<!-- JAX-RS -->
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+		</dependency>
+		
+		<!-- Test -->
 		<dependency>
 			<groupId>org.loadui</groupId>
 			<artifactId>testFx</artifactId>
 			<version>3.1.2</version>
 		</dependency>
+		
 	</dependencies>
 	
 </project>

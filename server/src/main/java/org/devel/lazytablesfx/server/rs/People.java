@@ -25,13 +25,11 @@ public class People implements IPeople {
 			final String lastName) {
 		peopleService.addPerson(email, firstName, lastName);
 		return Response.ok().build();
-		// return Response.created(
-		// uriInfo.getRequestUriBuilder().path(email).build()).build();
 	}
 
 	@Override
 	public Collection<Person> getPeople(final int page) {
-		return peopleService.getPeople(page, 5);
+		return peopleService.getPeople(page, 100000);
 	}
 
 	@Override

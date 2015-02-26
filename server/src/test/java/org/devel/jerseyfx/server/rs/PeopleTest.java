@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Client;
@@ -12,6 +13,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.ResponseProcessingException;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -177,6 +179,11 @@ public class PeopleTest extends GrizzlyTest {
 
 			assertTrue(sResponse instanceof String);
 
+			// this works 4 getting collections with generic types
+			List<Person> people = target.queryParam("page", 1)//.path("stefan.illgen@mail.com")
+					.request(MediaType.APPLICATION_JSON).get(new GenericType<List<Person>>(){});
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(e.getMessage(), false);
