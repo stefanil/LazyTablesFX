@@ -23,8 +23,9 @@ public class PersonCell extends ListCell<PersonProxy> {
 						new Callback<Integer, Void>() {
 							@Override
 							public Void call(Integer index) {
-								LOGGER.debug("Current Index: " + getIndex());
-								LOGGER.debug("Original Index: " + index);
+								LOGGER.info("### Rendering PersonCell ###");
+								LOGGER.info("Current Index: " + getIndex());
+								LOGGER.info("Original Index: " + index);
 								updateItem(person.getPerson());
 								return null;
 							}
