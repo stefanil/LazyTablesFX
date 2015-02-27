@@ -3,6 +3,7 @@
  */
 package org.devel.lazytablesfx.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
@@ -59,39 +60,25 @@ public class MainApplication extends Application {
 		root.setPrefWidth(600);
 		root.setPrefHeight(400);
 
-		final ListView<Person> listView = new ListView<Person>();
-		listView.setCellFactory(new Callback<ListView<Person>, ListCell<Person>>() {
+		final ListView<PersonProxy> listView = new ListView<PersonProxy>();
+		listView.setCellFactory(new Callback<ListView<PersonProxy>, ListCell<PersonProxy>>() {
 			@Override
-			public ListCell<Person> call(ListView<Person> list) {
+			public ListCell<PersonProxy> call(ListView<PersonProxy> list) {
 				return new PersonCell();
 			}
 		});
-		listView.setSkin(new LazyListViewSkin<>(listView));
+//		listView.setSkin(new LazyListViewSkin<>(listView));
 		root.setCenter(listView);
 
-		// load data from server
-		Thread thread = new Thread(new Task<Void>() {
-			@Override
-			protected Void call() throws Exception {
-				Client client = ClientBuilder.newClient();
-				WebTarget target = client.target("http://localhost:9000/")
-						.path("/people");
-				List<Person> people = target.queryParam("page", 1)
-						// .path("stefan.illgen@mail.com")
-						.request(MediaType.APPLICATION_JSON)
-						.get(new GenericType<List<Person>>() {
-						});
-				Platform.runLater(() -> loadListData(people));
-				return null;
-			}
-
-			private void loadListData(List<Person> people) {
-				listView.setBackground(new Background(new BackgroundFill(
-						Color.AQUA, new CornerRadii(5), new Insets(5))));
-				listView.setItems(FXCollections.observableArrayList(people));
-			}
-		});
-		thread.start();
+		listView.setItems(FXCollections
+				.observableArrayList(new ArrayList<PersonProxy>() {
+					private static final long serialVersionUID = -5517985007392561839L;
+					{
+						for(int i=0; i<100; i++) {
+							add(new PersonProxy());
+						}
+					}
+				}));
 
 		return root;
 	}
