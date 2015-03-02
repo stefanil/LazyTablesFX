@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.devel.lazytablesfx.model.Person;
 
-public class PersonProxy extends Person {
+public class PersonProxy extends Person implements ItemProxy<Person> {
 
 	private Person person;
 
@@ -22,6 +22,7 @@ public class PersonProxy extends Person {
 	 * 
 	 * Return Type (Void): null to be returned to this proxy
 	 */
+	@Override
 	public void load(final Integer index,
 			final Callback<? super Integer, Void> finishedHandler) {
 
@@ -49,11 +50,13 @@ public class PersonProxy extends Person {
 
 	}
 
+	@Override
 	public boolean isLoaded() {
 		return person != null;
 	}
 
-	public Person getPerson() {
+	@Override
+	public Person getSubject() {
 		return person;
 	}
 

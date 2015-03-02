@@ -6,7 +6,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Skin;
 
-public class LazyListView<T> extends ListView<T> {
+import org.devel.lazytablesfx.client.ItemProxy;
+
+public class LazyListView<T extends ItemProxy<S>, S> extends ListView<T> {
 
 	public LazyListView() {
 		super();

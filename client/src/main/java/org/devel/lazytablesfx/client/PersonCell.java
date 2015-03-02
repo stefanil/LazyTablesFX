@@ -2,7 +2,6 @@ package org.devel.lazytablesfx.client;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.util.Callback;
 
 import org.apache.log4j.Logger;
 import org.devel.lazytablesfx.model.Person;
@@ -16,21 +15,9 @@ public class PersonCell extends ListCell<PersonProxy> {
 		super.updateItem(person, empty);
 		if (!empty && person != null) {
 			if (person.isLoaded())
-				updateItem(person.getPerson());
+				updateItem(person.getSubject());
 			else {
 				setGraphic(new Label("Waiting ..."));
-				person.load(Integer.valueOf(getIndex()),
-						new Callback<Integer, Void>() {
-							@Override
-							public Void call(Integer index) {
-								LOGGER.info("### Rendering PersonCell ###");
-								LOGGER.info("Current Index: " + getIndex());
-								LOGGER.info("Original Index: " + index);
-								if(index == getIndex())
-									updateItem(person.getPerson());
-								return null;
-							}
-						});
 			}
 		}
 	}

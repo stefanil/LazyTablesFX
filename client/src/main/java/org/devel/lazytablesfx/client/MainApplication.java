@@ -17,6 +17,7 @@ import javafx.util.Callback;
 
 import org.devel.lazytablesfx.client.controls.LazyListView;
 import org.devel.lazytablesfx.client.controls.LazyListViewSkin;
+import org.devel.lazytablesfx.model.Person;
 
 /**
  * @author stefan.illgen
@@ -28,8 +29,6 @@ public class MainApplication extends Application {
 	public void start(Stage stage) throws Exception {
 
 		Scene scene = new Scene(createNodes());
-		// scene.getStylesheets().add(getClass().getResource(".").toExternalForm()
-		// + getClass().getSimpleName() + ".css");
 		stage.setScene(scene);
 		stage.setTitle(getClass().getName());
 
@@ -46,7 +45,7 @@ public class MainApplication extends Application {
 		root.setPrefWidth(600);
 		root.setPrefHeight(400);
 
-		// minimal example
+		// minimal example (List Bug)
 		// final ListView<Person> listView = new ListView<Person>();
 		// listView.setItems(FXCollections
 		// .observableArrayList(new ArrayList<Person>() {
@@ -57,7 +56,7 @@ public class MainApplication extends Application {
 		// }
 		// }));
 
-		final LazyListView<PersonProxy> listView = new LazyListView<PersonProxy>();
+		final LazyListView<PersonProxy, Person> listView = new LazyListView<>();
 		listView.setFixedCellSize(50);
 		listView.setCellFactory(new Callback<ListView<PersonProxy>, ListCell<PersonProxy>>() {
 			@Override
@@ -67,7 +66,6 @@ public class MainApplication extends Application {
 		});
 		listView.setSkin(new LazyListViewSkin<>(listView));
 		root.setCenter(listView);
-
 		listView.setItems(FXCollections
 				.observableArrayList(new ArrayList<PersonProxy>() {
 					private static final long serialVersionUID = -5517985007392561839L;
@@ -84,20 +82,5 @@ public class MainApplication extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
-	// private void loadFXML() {
-	//
-	// URL url = ".fxml";
-	// FXMLLoader fxmlLoader = new FXMLLoader(url);
-	//
-	// fxmlLoader.setRoot(this);
-	// fxmlLoader.setController(this);
-	//
-	// try {
-	// fxmlLoader.load();
-	// } catch (IOException exception) {
-	// throw new RuntimeException(exception);
-	// }
-	// }
 
 }
