@@ -1,4 +1,4 @@
-package org.devel.jerseyfx.common.model;
+package org.devel.lazytablesfx.model;
 
 import java.util.List;
 

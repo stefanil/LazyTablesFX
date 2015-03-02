@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.devel.jerseyfx.common.exceptions.PersonAlreadyExistsException;
-import org.devel.jerseyfx.common.exceptions.PersonNotFoundException;
-import org.devel.jerseyfx.common.model.Person;
+import org.devel.lazytablesfx.exceptions.PersonAlreadyExistsException;
+import org.devel.lazytablesfx.exceptions.PersonNotFoundException;
+import org.devel.lazytablesfx.model.Person;
 
 public class PeopleService {
 

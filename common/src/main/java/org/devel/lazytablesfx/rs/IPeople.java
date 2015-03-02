@@ -1,4 +1,4 @@
-package org.devel.jerseyfx.common.rs;
+package org.devel.lazytablesfx.rs;
 
 import java.util.Collection;
 
@@ -15,7 +15,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.devel.jerseyfx.common.model.Person;
+import org.devel.lazytablesfx.model.Person;
 
 @Path("people")
 public interface IPeople {

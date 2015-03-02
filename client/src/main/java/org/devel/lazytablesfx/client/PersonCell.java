@@ -5,7 +5,7 @@ import javafx.scene.control.ListCell;
 import javafx.util.Callback;
 
 import org.apache.log4j.Logger;
-import org.devel.jerseyfx.common.model.Person;
+import org.devel.lazytablesfx.model.Person;
 
 public class PersonCell extends ListCell<PersonProxy> {
 
@@ -26,7 +26,8 @@ public class PersonCell extends ListCell<PersonProxy> {
 								LOGGER.info("### Rendering PersonCell ###");
 								LOGGER.info("Current Index: " + getIndex());
 								LOGGER.info("Original Index: " + index);
-								updateItem(person.getPerson());
+								if(index == getIndex())
+									updateItem(person.getPerson());
 								return null;
 							}
 						});

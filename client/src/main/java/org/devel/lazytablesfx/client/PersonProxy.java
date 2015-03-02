@@ -9,7 +9,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
-import org.devel.jerseyfx.common.model.Person;
+import org.devel.lazytablesfx.model.Person;
 
 public class PersonProxy extends Person {
 

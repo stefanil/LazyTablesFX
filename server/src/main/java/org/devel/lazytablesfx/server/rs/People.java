@@ -5,8 +5,8 @@ import java.util.Collection;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
-import org.devel.jerseyfx.common.model.Person;
-import org.devel.jerseyfx.common.rs.IPeople;
+import org.devel.lazytablesfx.model.Person;
+import org.devel.lazytablesfx.rs.IPeople;
 import org.devel.lazytablesfx.server.services.PeopleService;
 
 public class People implements IPeople {

@@ -4,32 +4,18 @@
 package org.devel.lazytablesfx.client;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.concurrent.Task;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
-
-import org.devel.jerseyfx.common.model.Person;
+import org.devel.lazytablesfx.client.controls.LazyListView;
 import org.devel.lazytablesfx.client.controls.LazyListViewSkin;
 
 /**
@@ -60,14 +46,14 @@ public class MainApplication extends Application {
 		root.setPrefWidth(600);
 		root.setPrefHeight(400);
 
-		final ListView<PersonProxy> listView = new ListView<PersonProxy>();
+		final LazyListView<PersonProxy> listView = new LazyListView<PersonProxy>();
 		listView.setCellFactory(new Callback<ListView<PersonProxy>, ListCell<PersonProxy>>() {
 			@Override
 			public ListCell<PersonProxy> call(ListView<PersonProxy> list) {
 				return new PersonCell();
 			}
 		});
-//		listView.setSkin(new LazyListViewSkin<>(listView));
+		listView.setSkin(new LazyListViewSkin<>(listView));
 		root.setCenter(listView);
 
 		listView.setItems(FXCollections
