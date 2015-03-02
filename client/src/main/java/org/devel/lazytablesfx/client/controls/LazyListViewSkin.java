@@ -3,14 +3,12 @@ package org.devel.lazytablesfx.client.controls;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.util.Callback;
 
 import org.apache.log4j.Logger;
 import org.devel.lazytablesfx.client.ItemProxy;
-import org.devel.lazytablesfx.client.PersonCell;
 
 import com.sun.javafx.scene.control.skin.ListViewSkin;
 
@@ -61,7 +59,7 @@ public class LazyListViewSkin<T extends ItemProxy<S>, S> extends
 						@Override
 						public Void call(final Integer index) {
 							LOGGER.info("index " + index + " completed");
-							final int j = index.intValue();
+//							final int j = index.intValue();
 							// Platform.runLater(() -> {
 							Platform.runLater(new Runnable() {
 								public void run() {
