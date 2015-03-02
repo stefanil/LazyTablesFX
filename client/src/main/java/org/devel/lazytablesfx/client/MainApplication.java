@@ -57,7 +57,6 @@ public class MainApplication extends Application {
 		// }));
 
 		final LazyListView<PersonProxy, Person> listView = new LazyListView<>();
-		listView.setFixedCellSize(50);
 		listView.setCellFactory(new Callback<ListView<PersonProxy>, ListCell<PersonProxy>>() {
 			@Override
 			public ListCell<PersonProxy> call(ListView<PersonProxy> list) {
