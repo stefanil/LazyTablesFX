@@ -46,7 +46,19 @@ public class MainApplication extends Application {
 		root.setPrefWidth(600);
 		root.setPrefHeight(400);
 
+		// minimal example
+		// final ListView<Person> listView = new ListView<Person>();
+		// listView.setItems(FXCollections
+		// .observableArrayList(new ArrayList<Person>() {
+		// {
+		// for (int i = 0; i < 100; i++) {
+		// add(new Person("email_"+i));
+		// }
+		// }
+		// }));
+
 		final LazyListView<PersonProxy> listView = new LazyListView<PersonProxy>();
+		listView.setFixedCellSize(50);
 		listView.setCellFactory(new Callback<ListView<PersonProxy>, ListCell<PersonProxy>>() {
 			@Override
 			public ListCell<PersonProxy> call(ListView<PersonProxy> list) {
@@ -60,7 +72,7 @@ public class MainApplication extends Application {
 				.observableArrayList(new ArrayList<PersonProxy>() {
 					private static final long serialVersionUID = -5517985007392561839L;
 					{
-						for(int i=0; i<100; i++) {
+						for (int i = 0; i < 100; i++) {
 							add(new PersonProxy());
 						}
 					}
