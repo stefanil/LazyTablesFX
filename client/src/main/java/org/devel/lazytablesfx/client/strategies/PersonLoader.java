@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.devel.lazytablesfx.model.Person;
 
-public class PersonLoader implements Loader<Person> {
+public class PersonLoader implements LazyLoader<Person> {
 
 	private String target;
 	private String path;
