@@ -9,14 +9,12 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
-import org.devel.lazytablesfx.client.controls.LazyListView;
-import org.devel.lazytablesfx.client.controls.LazyListViewSkin;
+import org.devel.lazytablesfx.client.controls.LazyListViewB;
+import org.devel.lazytablesfx.client.controls.LazyListViewSkinB;
+import org.devel.lazytablesfx.client.strategies.PersonLoader;
 import org.devel.lazytablesfx.model.Person;
 
 /**
@@ -56,24 +54,20 @@ public class MainApplication extends Application {
 		// }
 		// }));
 
-		final LazyListView<PersonProxy, Person> listView = new LazyListView<>();
-		listView.setCellFactory(new Callback<ListView<PersonProxy>, ListCell<PersonProxy>>() {
-			@Override
-			public ListCell<PersonProxy> call(ListView<PersonProxy> list) {
-				return new PersonCell();
-			}
-		});
-		listView.setSkin(new LazyListViewSkin<>(listView));
+		final LazyListViewB<Person> listView = new LazyListViewB<>();
+		listView.setSkin(new LazyListViewSkinB<Person>(listView,
+				new PersonLoader("http://localhost:9000/", "/people")));
 		root.setCenter(listView);
-		listView.setItems(FXCollections
-				.observableArrayList(new ArrayList<PersonProxy>() {
-					private static final long serialVersionUID = -5517985007392561839L;
-					{
-						for (int i = 0; i < 100; i++) {
-							add(new PersonProxy());
-						}
-					}
-				}));
+
+//		listView.setItems(FXCollections
+//				.observableArrayList(new ArrayList<PersonProxy>() {
+//					private static final long serialVersionUID = -5517985007392561839L;
+//					{
+//						for (int i = 0; i < 100; i++) {
+//							add(new PersonProxy());
+//						}
+//					}
+//				}));
 
 		return root;
 	}

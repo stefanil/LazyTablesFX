@@ -29,12 +29,17 @@ public class PeopleService {
 	private final ConcurrentMap<String, Person> persons = new ConcurrentHashMap<String, Person>();
 
 	public Collection<Person> getPeople(int page, int pageSize) {
+		
 		final Collection<Person> slice = new ArrayList<Person>(pageSize);
 
-		final Iterator<Person> iterator = persons.values().iterator();
+		Iterator<String> iterator = persons.keySet().stream().sorted().iterator();
+		
+//		final Iterator<Person> iterator = persons.values().iterator();
 		for (int i = 0; slice.size() < pageSize && iterator.hasNext();) {
 			if (++i > ((page - 1) * pageSize)) {
-				slice.add(iterator.next());
+				slice.add(persons.get(iterator.next()));
+			} else {
+				iterator.next();
 			}
 		}
 

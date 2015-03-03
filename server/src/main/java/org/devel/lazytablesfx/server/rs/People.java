@@ -29,7 +29,7 @@ public class People implements IPeople {
 
 	@Override
 	public Collection<Person> getPeople(final int page) {
-		return peopleService.getPeople(page, 100);
+		return peopleService.getPeople(page, 5);
 	}
 
 	@Override
