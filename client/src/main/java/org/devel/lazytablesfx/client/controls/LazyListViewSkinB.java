@@ -49,7 +49,7 @@ public class LazyListViewSkinB<T> extends ListViewSkin<T> {
 		// list)
 		// getSkinnable().addEventFilter(ScrollEvent.ANY,
 		// event -> onScroll());
-		
+
 		// workaround
 		for (Node node : getSkinnable().lookupAll(".scroll-bar")) {
 			if (node instanceof ScrollBar) {
@@ -106,7 +106,9 @@ public class LazyListViewSkinB<T> extends ListViewSkin<T> {
 			@Override
 			protected Void call() throws Exception {
 
-				Thread.sleep(5000);
+				// TODO stefan - remove (just 4 the showcase)
+				if (listView.getItems().size() != 0)
+					Thread.sleep(5000);
 
 				ObservableList<T> newItems = loader.next();
 

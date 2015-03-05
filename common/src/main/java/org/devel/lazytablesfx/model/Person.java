@@ -2,7 +2,7 @@ package org.devel.lazytablesfx.model;
 
 import java.util.List;
 
-public class Person {
+public class Person implements Comparable<Person> {
 
 	private String email;
 	private String firstName;
@@ -72,6 +72,11 @@ public class Person {
 
 	public void setParents(List<Person> parents) {
 		this.parents = parents;
+	}
+
+	@Override
+	public int compareTo(Person o) {
+		return this.getEmail().compareTo(o.getEmail());
 	}
 	
 }

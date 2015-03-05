@@ -29,13 +29,14 @@ import org.junit.Test;
 public class PeopleTest extends GrizzlyTest {
 
 	private static final String TEST_E_MAIL = "stefan.illgen@mail.com";
-	
+
 	@Override
 	protected HttpServer createServer() {
 		URI baseUri = UriBuilder.fromUri("http://localhost/").port(9000)
 				.build();
 		ResourceConfig config = new ResourceConfig(People.class);
-		return GrizzlyHttpServerFactory.createHttpServer(baseUri, config, false);
+		return GrizzlyHttpServerFactory
+				.createHttpServer(baseUri, config, false);
 	}
 
 	protected WebTarget createWebTarget() {
@@ -73,6 +74,7 @@ public class PeopleTest extends GrizzlyTest {
 	public void testPerson() {
 		createPerson();
 		readPeople();
+		// readPeopleStream();
 		readPerson();
 		updatePerson();
 		deletePerson();
@@ -180,15 +182,83 @@ public class PeopleTest extends GrizzlyTest {
 			assertTrue(sResponse instanceof String);
 
 			// this works 4 getting collections with generic types
-			List<Person> people = target.queryParam("page", 1)//.path("stefan.illgen@mail.com")
-					.request(MediaType.APPLICATION_JSON).get(new GenericType<List<Person>>(){});
+			List<Person> people = target.queryParam("page", 1)
+					// .path("stefan.illgen@mail.com")
+					.request(MediaType.APPLICATION_JSON)
+					.get(new GenericType<List<Person>>() {
+					});
 			
-			
+			assertTrue(people.size() > 0);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(e.getMessage(), false);
 		}
 	}
+
+	// private void readPeopleStream() {
+	//
+	// try {
+	// InputStream inputStream = target.path("stream")
+	// .request(MediaType.APPLICATION_JSON).get(InputStream.class);
+	// try {
+	//
+	// // ObjectInputStream ois = new ObjectInputStream(
+	// // new BufferedInputStream(stream));
+	// // Object o = ois.readObject();
+	// // assertTrue(o!=null);
+	//
+	// ObjectMapper objectMapper = new ObjectMapper();
+	// JsonFactory jsonFactory = objectMapper.getFactory();
+	//
+	// // ####### approach 1 #######
+	// JsonParser jsonParser = jsonFactory.createParser(inputStream);
+	// //
+	// jsonParser.configure(JsonParser.Feature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER,
+	// // true);
+	// // jsonParser.configure(JsonParser.Feature.ALLOW_COMMENTS,
+	// // true);
+	// // jsonParser.configure(JsonParser.Feature.ALLOW_NON_NUMERIC_NUMBERS,
+	// // true);
+	// // jsonParser.configure(JsonParser.Feature.ALLOW_NUMERIC_LEADING_ZEROS,
+	// // true);
+	// // jsonParser.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES,
+	// // true);
+	// // jsonParser.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS,
+	// // true);
+	// // jsonParser.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES,
+	// // true);
+	// // jsonParser.configure(JsonParser.Feature.ALLOW_YAML_COMMENTS,
+	// // true);
+	// jsonParser.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE,
+	// false);
+	// // jsonParser.configure(JsonParser.Feature.STRICT_DUPLICATE_DETECTION,
+	// // true);
+	//
+	// Person[] people = jsonParser.readValueAs(Person[].class);
+	// assertTrue(people.length > 0);
+	//
+	// // ####### approach 2 (WON'T WORK) #######
+	// // MappingIterator<Person[]> values = objectMapper.readValues(
+	// // jsonParser, Person[].class);
+	// // while (values.hasNext()) {
+	// // people = values.next();
+	// // assertTrue(people != null);
+	// // }
+	//
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// } finally {
+	// inputStream.close();
+	// }
+	//
+	// assertTrue(inputStream instanceof InputStream);
+	//
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// assertTrue(e.getMessage(), false);
+	// }
+	// }
 
 	public void readPerson() {
 		try {
@@ -227,10 +297,10 @@ public class PeopleTest extends GrizzlyTest {
 			assertEquals(newFirstName, person.getFirstName());
 			assertEquals(newLastName, person.getLastName());
 
-			person = target.path(TEST_E_MAIL)
-					.request(MediaType.APPLICATION_JSON).get(Person.class);
-			assertEquals(newFirstName, person.getFirstName());
-			assertEquals(newLastName, person.getLastName());
+			// person = target.path(TEST_E_MAIL)
+			// .request(MediaType.APPLICATION_JSON).get(Person.class);
+			// assertEquals(newFirstName, person.getFirstName());
+			// assertEquals(newLastName, person.getLastName());
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -3,10 +3,7 @@
  */
 package org.devel.lazytablesfx.client;
 
-import java.util.ArrayList;
-
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -14,7 +11,7 @@ import javafx.stage.Stage;
 
 import org.devel.lazytablesfx.client.controls.LazyListViewB;
 import org.devel.lazytablesfx.client.controls.LazyListViewSkinB;
-import org.devel.lazytablesfx.client.strategies.PersonLoader;
+import org.devel.lazytablesfx.client.strategies.RESTfulPersonLoader;
 import org.devel.lazytablesfx.model.Person;
 
 /**
@@ -43,31 +40,10 @@ public class MainApplication extends Application {
 		root.setPrefWidth(600);
 		root.setPrefHeight(400);
 
-		// minimal example (List Bug)
-		// final ListView<Person> listView = new ListView<Person>();
-		// listView.setItems(FXCollections
-		// .observableArrayList(new ArrayList<Person>() {
-		// {
-		// for (int i = 0; i < 100; i++) {
-		// add(new Person("email_"+i));
-		// }
-		// }
-		// }));
-
 		final LazyListViewB<Person> listView = new LazyListViewB<>();
 		listView.setSkin(new LazyListViewSkinB<Person>(listView,
-				new PersonLoader("http://localhost:9000/", "/people")));
+				new RESTfulPersonLoader("http://localhost:9000/", "/people")));
 		root.setCenter(listView);
-
-//		listView.setItems(FXCollections
-//				.observableArrayList(new ArrayList<PersonProxy>() {
-//					private static final long serialVersionUID = -5517985007392561839L;
-//					{
-//						for (int i = 0; i < 100; i++) {
-//							add(new PersonProxy());
-//						}
-//					}
-//				}));
 
 		return root;
 	}

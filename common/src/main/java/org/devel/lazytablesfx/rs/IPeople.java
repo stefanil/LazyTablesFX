@@ -25,8 +25,7 @@ public interface IPeople {
 	 */
 	@Produces({ MediaType.APPLICATION_JSON })
 	@POST
-	public abstract Response addPerson(
-			@FormParam("email") final String email,
+	public abstract Response addPerson(@FormParam("email") final String email,
 			@FormParam("firstName") final String firstName,
 			@FormParam("lastName") final String lastName);
 
@@ -42,6 +41,11 @@ public interface IPeople {
 	@GET
 	public abstract Collection<Person> getPeople(
 			@QueryParam("page") @DefaultValue("1") final int page);
+
+	// @Produces({ MediaType.APPLICATION_JSON })
+	// @Path("{stream}")
+	// @GET
+	// public abstract Response getPeople();
 
 	/*
 	 * PUT (ID known to the client) == UPDATE
@@ -59,5 +63,5 @@ public interface IPeople {
 	@Path("{email}")
 	@DELETE
 	public abstract Response deletePerson(@PathParam("email") final String email);
-	
+
 }
