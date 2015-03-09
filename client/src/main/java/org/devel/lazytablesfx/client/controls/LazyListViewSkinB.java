@@ -78,8 +78,19 @@ public class LazyListViewSkinB<T> extends ListViewSkin<T> {
 	}
 
 	private void onScroll() {
+		/*
+		 * If there is a fixed size constraint for the list, calculation is
+		 * possible. But if not, we cannot assume a position. Thus we make use
+		 * of the flow to detect visibility state for a given cell index. If 
+		 * the cell is about to get visible, then reload.
+		 */
+		boolean mustLoad = false;
+		LazyListViewB<T> listView = (LazyListViewB<T>) getSkinnable();
+		int nextLoadIndex = listView.getItems().size() - (listView.getNextLoadCellDistance() + 1);
+		mustLoad = flow.getVisibleCell(nextLoadIndex) != null;
+
 		double newPosition = flow.getPosition();
-		if (!loading && oldPosition < newPosition && newPosition > 0.98) {
+		if (!loading && oldPosition < newPosition && mustLoad) {
 			loading = true;
 			getSkinnable().requestLayout();
 			loadNextListViewItems();
@@ -100,15 +111,13 @@ public class LazyListViewSkinB<T> extends ListViewSkin<T> {
 		LazyListViewB<T> listView = (LazyListViewB<T>) getSkinnable();
 		listView.setProgress(-1);
 
-		// ListCell<T> lastVisibleCell = flow.getLastVisibleCell();
-
 		Thread t = new Thread(new Task<Void>() {
 			@Override
 			protected Void call() throws Exception {
 
 				// TODO stefan - remove (just 4 the showcase)
 				if (listView.getItems().size() != 0)
-					Thread.sleep(5000);
+					Thread.sleep(2000);
 
 				ObservableList<T> newItems = loader.next();
 

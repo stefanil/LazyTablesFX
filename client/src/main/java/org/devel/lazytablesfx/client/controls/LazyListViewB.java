@@ -2,9 +2,10 @@ package org.devel.lazytablesfx.client.controls;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.DoublePropertyBase;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Skin;
 
 public class LazyListViewB<T> extends ListView<T> {
 
@@ -50,6 +51,40 @@ public class LazyListViewB<T> extends ListView<T> {
 			};
 		}
 		return progress;
+	}
+
+	/* NEXT LOAD CELL DISTANCE */
+
+	private static final int NEXT_LOAD_CELL_DISTANCE_DEFAULT_VALUE = 0;
+
+	private IntegerProperty nextLoadCellDistance;
+
+	public final void setNextLoadCellDistance(int value) {
+		nextLoadCellDistanceProperty().set(value);
+	}
+
+	public final int getNextLoadCellDistance() {
+		return nextLoadCellDistance == null ? NEXT_LOAD_CELL_DISTANCE_DEFAULT_VALUE
+				: nextLoadCellDistance.get();
+	}
+
+	/**
+	 * Cell index from where to load next items:
+	 * 
+	 * <ul>
+	 * 	<li>0 .. start to load when the last cell gets visible</li>
+	 * 	<li>1 .. start to load when the cell next to the last cell gets visible</li>
+	 * 	<li>aso.</li>
+	 * </ul>
+	 * 
+	 * @return
+	 */
+	public final IntegerProperty nextLoadCellDistanceProperty() {
+		if (nextLoadCellDistance == null) {
+			nextLoadCellDistance = new SimpleIntegerProperty(
+					NEXT_LOAD_CELL_DISTANCE_DEFAULT_VALUE);
+		}
+		return nextLoadCellDistance;
 	}
 
 	// /* PRIVATE */
