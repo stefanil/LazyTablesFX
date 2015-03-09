@@ -29,7 +29,7 @@ public class LazyListViewSkinB<T> extends ListViewSkin<T> {
 
 	private LazyLoader<T> loader;
 
-	private double oldPosition = 0.0d;
+	private double lastPosition = 0.0d;
 
 	public LazyListViewSkinB(ListView<T> listView, LazyLoader<T> loader) {
 		super(listView);
@@ -39,6 +39,7 @@ public class LazyListViewSkinB<T> extends ListViewSkin<T> {
 		this.loader = loader;
 		// create nodes
 		progressBar = new ProgressBar(0.5);
+		progressBar.setId("lazy-list-progress-bar");
 		progressBar.progressProperty().bind(
 				((LazyListViewB<T>) getSkinnable()).progressProperty());
 		getChildren().add(progressBar);
@@ -86,16 +87,16 @@ public class LazyListViewSkinB<T> extends ListViewSkin<T> {
 		 */
 		boolean mustLoad = false;
 		LazyListViewB<T> listView = (LazyListViewB<T>) getSkinnable();
-		int nextLoadIndex = listView.getItems().size() - (listView.getNextLoadCellDistance() + 1);
+		int nextLoadIndex = getItemCount() - (listView.getNextLoadCellDistance() + 1);
 		mustLoad = flow.getVisibleCell(nextLoadIndex) != null;
 
 		double newPosition = flow.getPosition();
-		if (!loading && oldPosition < newPosition && mustLoad) {
+		if (!loading && lastPosition < newPosition && mustLoad) {
 			loading = true;
 			getSkinnable().requestLayout();
 			loadNextListViewItems();
 		}
-		oldPosition = newPosition;
+		lastPosition = newPosition;
 	}
 
 	// @Override
@@ -122,7 +123,14 @@ public class LazyListViewSkinB<T> extends ListViewSkin<T> {
 				ObservableList<T> newItems = loader.next();
 
 				Platform.runLater(() -> {
-
+					/*
+					 * Workaround for preventing the list from jumping to the end. When
+					 * the list is already at the end before adding new items, we want to
+					 * show the currently visible cell. 
+					 */
+					flow.adjustPixels(-0.1);
+					
+					// add items
 					loading = false;
 					listView.getItems().addAll(newItems);
 

@@ -43,6 +43,7 @@ public class MainApplication extends Application {
 		final LazyListViewB<Person> listView = new LazyListViewB<>();
 		listView.setSkin(new LazyListViewSkinB<Person>(listView,
 				new RESTfulPersonLoader("http://localhost:9000/", "/people")));
+		listView.setNextLoadCellDistance(3);
 		root.setCenter(listView);
 
 		return root;
